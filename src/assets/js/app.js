@@ -30,7 +30,7 @@ const FunctionInit = (function() {
               count = 1;
           for (let i = 1; i <= this.colCount; i++) {
               for (let j = 1; j <= this.colCount; j++) {
-                  html += `<div class='unknown m-board__col' id="col-${i}-${j}"></div>`;
+                  html += `<div class='unknown m-board__col' id="col-${count}"></div>`;
                   count++;
               }
           }
@@ -42,8 +42,7 @@ const FunctionInit = (function() {
       */
       placeDiamonds: function() {
           let posArray = [],
-              boardCols = this.boardWrapper.querySelectorAll('.m-board__col'),
-              diamondCols = [];
+              boardCols = this.boardWrapper.querySelectorAll('.m-board__col');
           while (posArray.length < this.colCount) {
               var random = Math.floor(Math.random() * (this.colCount*this.colCount)) + 1;
               if (posArray.indexOf(random) > -1) continue;
@@ -60,8 +59,6 @@ const FunctionInit = (function() {
         * @returns null.
         */
       onColumnClick: function() {
-          let colId = this.id,
-              result = 10;
           if (this.classList.contains('diamond')) {
               this.classList.remove('unknown')
               if (!this.classList.contains('reveal')) {
