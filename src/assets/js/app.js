@@ -1,4 +1,13 @@
+/**
+ * Main javascript file
+ * Date: 2018-10-31
+ */
+
+
 const FunctionInit = (function() {
+  /*  ----------------------------- Explanation ----------------------------------------
+  * All functions used in the page are assiged to 'FunctionInit' object as prototype.
+  */
   "use strict";
   return {
       init: function(options) {
@@ -11,6 +20,11 @@ const FunctionInit = (function() {
           this.maxScore = (this.colCount*this.colCount) - this.colCount;
           this.revealedItems = 0;
       },
+      /**
+        function used for draw the board with provided row & column numbers
+      * Created html fragment inserted in to the container div for the board
+      * @returns null.
+      */
       drawBoard: function() {
           let html = '',
               count = 1;
@@ -22,6 +36,10 @@ const FunctionInit = (function() {
           }
           this.boardWrapper.innerHTML = html;
       },
+      /**
+        Function used for placing diamonds in the board
+      * @returns null.
+      */
       placeDiamonds: function() {
           let posArray = [],
               boardCols = this.boardWrapper.querySelectorAll('.m-board__col'),
@@ -37,6 +55,10 @@ const FunctionInit = (function() {
 
           boardCols.forEach(column => column.addEventListener('click', this.onColumnClick));
       },
+        /**
+          function used for handling the column click.
+        * @returns null.
+        */
       onColumnClick: function() {
           let colId = this.id,
               result = 10;
@@ -62,8 +84,14 @@ const FunctionInit = (function() {
 })();
 
 
-FunctionInit.init({
-  boardWrapper: ".m-board__container",
-  rowCols: 8,
-  gridColor: '#ddd'
-});
+(function(){
+  /*  ----------------------------- Explaination ----------------------------------------
+  * Intiallzing the 'FunctionInit' with custom options
+  */
+  FunctionInit.init({
+    boardWrapper: ".m-board__container",
+    rowCols: 8,
+    gridColor: '#ddd'
+  });
+
+})();
