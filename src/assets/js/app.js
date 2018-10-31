@@ -3,17 +3,20 @@ const FunctionInit = (function() {
   return {
       init: function(options) {
           this.boardWrapper = document.querySelector(options.boardWrapper);
+          this.colCount = options.rowCols;
           this.drawBoard();
           this.placeDiamonds();
-          this.maxScore = 56;
+          document.documentElement.style.setProperty(`--colCount`, options.rowCols);
+          document.documentElement.style.setProperty(`--gridColor`, options.gridColor);
+          this.maxScore = (this.colCount*this.colCount) - this.colCount;
           this.revealedItems = 0;
       },
       drawBoard: function() {
           let html = '',
               count = 1;
-          for (let i = 0; i < 8; i++) {
-              for (let j = 0; j < 8; j++) {
-                  html += `<div class='unknown m-board__col' id="col-${count}"></div>`;
+          for (let i = 1; i <= this.colCount; i++) {
+              for (let j = 1; j <= this.colCount; j++) {
+                  html += `<div class='unknown m-board__col' id="col-${i}-${j}"></div>`;
                   count++;
               }
           }
@@ -21,14 +24,15 @@ const FunctionInit = (function() {
       },
       placeDiamonds: function() {
           let posArray = [],
-              boardCols = this.boardWrapper.querySelectorAll('.m-board__col')
-          while (posArray.length < 8) {
-              var random = Math.floor(Math.random() * 64) + 1;
+              boardCols = this.boardWrapper.querySelectorAll('.m-board__col'),
+              diamondCols = [];
+          while (posArray.length < this.colCount) {
+              var random = Math.floor(Math.random() * (this.colCount*this.colCount)) + 1;
               if (posArray.indexOf(random) > -1) continue;
               posArray[posArray.length] = random;
           }
           posArray.forEach(function(val, index) {
-              boardCols[val].classList.add('diamond');
+              boardCols[+val].classList.add('diamond');
           });
 
           boardCols.forEach(column => column.addEventListener('click', this.onColumnClick));
@@ -41,7 +45,7 @@ const FunctionInit = (function() {
               if (!this.classList.contains('reveal')) {
                   this.classList.add('reveal');
                   FunctionInit.revealedItems += 1;
-                  if (FunctionInit.revealedItems === 8) {
+                  if (FunctionInit.revealedItems === FunctionInit.colCount) {
                       document.querySelector('.m-board__score').innerHTML = `<h3>Your score</h3><span>${FunctionInit.maxScore}</span>`;
                       document.querySelector('.m-board__template').classList.add('show');
                   }
@@ -59,5 +63,7 @@ const FunctionInit = (function() {
 
 
 FunctionInit.init({
-  boardWrapper: ".m-board__container"
+  boardWrapper: ".m-board__container",
+  rowCols: 8,
+  gridColor: '#ddd'
 });

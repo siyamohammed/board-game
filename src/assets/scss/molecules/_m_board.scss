@@ -4,10 +4,15 @@
  .m-board{
   position: relative;
   width: 95%;
-  height: 500px;
+  height: 300px;
   margin: 0 auto;
   @media #{$mobileUp}{
+    width: 450px;
+    height: 420px;
+  }
+  @media #{$tabletUp}{
     width: 500px;
+    height: 500px;
   }
   *{
     box-sizing:border-box;
@@ -45,21 +50,24 @@
     height: 100%;
     background-color: #fff;
     color: #fff;
-    border: 2px solid #2c3e50;
+    border: 2px solid var(--gridColor);
     border-radius: 10px;
     position: absolute;
     display: grid;
-    grid-template: repeat(8, 1fr) / repeat(8, 1fr);
+    grid-template: repeat(var(--colCount), 1fr) / repeat(var(--colCount), 1fr);
 
     .m-board__col {
-        border: 2px solid #2c3e50;
-        border-radius: 2px;
-        justify-content: center;
-        align-items: center;
-        position: relative;
+      border: 2px solid var(--gridColor);
+      border-radius: 2px;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      &:after{
+        opacity: 0;
+      }
       &.diamond {
         background:#fff url('./diamond.png') no-repeat center center;
-          background-size:60%;
+        background-size:60%;
       }
 
       &.arrow {
@@ -75,9 +83,10 @@
           left: 0;
           top: 0;
           background:#f3f3f3 url('./question.png') no-repeat center center;
-            background-size:60%;
-          transition:all .3s ease;
+          background-size:60%;
+          transition:opacity .3s ease;
           z-index: 1;
+          opacity: 1;
         }
       }
     }
