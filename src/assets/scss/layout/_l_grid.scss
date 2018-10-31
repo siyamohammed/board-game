@@ -1,0 +1,54 @@
+/** ======================================
+ * Layout : Grid
+ * ======================================= */
+
+.l-grid {
+  display: flex;
+  flex-wrap: wrap;
+  + .l-grid {
+    margin-top: $gutter-width;
+    @media #{$mobileUp} {
+      margin-top: $gutter-width/2;
+    }
+  }
+  @media #{$mobileUp} {
+    margin: -$gutter-width/2;
+  }
+}
+
+.l-grid-item {
+  @media #{$mobile} {
+    width: 100%;
+    &:not(:first-child) {
+      margin-top: $gutter-width;
+    }
+  }
+  @media #{$mobileUp} {
+    margin: $gutter-width/2;
+    width: calc(100% - #{$gutter-width});
+  }
+}
+
+/**
+ * Modifier : column
+ * --------------------------------------- */
+
+@media #{$mobileUp} and #{$tabletUp} {
+  @include gridItem(S);
+}
+
+@media #{$mobileUp} {
+  @include gridItem(S-UP);
+}
+
+@media #{$tabletUp} and #{$desktop} {
+  @include gridItem(M);
+}
+
+@media #{$tabletUp} {
+  @include gridItem(M-UP);
+}
+
+@media #{$desktopUp} {
+  @include gridItem(L-UP);
+}
