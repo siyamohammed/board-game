@@ -1,4 +1,4 @@
-# 1. Documentation
+# 1. Board Game
 
 Boilerplate SCSS / PUG / ES6 for clean and fast Front-end project.
 
@@ -153,3 +153,10 @@ A PUG mixin is planned for use:
 ```pug
   +icon('name-of-file', 'my-css-class')
 ```
+### 1.3.7. Init the game
+
+FunctionInit.init({
+  boardWrapper: ".container",
+  rowCols: 8,
+  gridColor: 'yellow'
+});
